@@ -73,7 +73,7 @@ export default function Modal({
             <div className="translate h-full md:h-auto lg:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none bg-white focus:outline-none">
               <div className="flex items-center p-6 rounde-t justify-center relative border-b">
                 <button
-                  className="p-1 border-0 hover:opactiy-70 transistion absolute left-9"
+                  className="p-1 border-0 hover:opactiy-70 transistion absolute left-9 focus:border focus:p-1 focus:rounded-sm focus:border-black"
                   onClick={handleClose}
                 >
                   <IoMdClose size={18} />

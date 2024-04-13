@@ -71,7 +71,7 @@ export default function RegisterModal() {
 
   return (
     <Modal
-      disable={isSubmitting || !isValid}
+      disable={isSubmitting}
       open={registerModal.isOpen}
       title="Register"
       actionLabel="Continue"
