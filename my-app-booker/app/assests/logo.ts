@@ -1,0 +1,1 @@
+export const logo = "https://www.vectorlogo.zone/logos/airbnb/airbnb-tile.svg"
