@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modals/Modals";
+import RegisterModal from "./components/Modals/RegisterModal";
+import ShowToast from "./components/ShowToast";
 
 const inter = Poppins({ style: "normal", subsets: ["latin"], weight: "400" });
 
@@ -19,7 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <Modal  /> */}
+        <RegisterModal />
+        <ShowToast />
         <Navbar />
         {children}
       </body>

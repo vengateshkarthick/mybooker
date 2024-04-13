@@ -19,7 +19,7 @@ export default function Button({
     return (
         <button 
          className={twMerge("relative disabled:opacity-70 disabled:cursor-not-allowed transistion w-full rounded-lg hover:opactiy-80", 
-            outline ? "bg-white border-black text-black": 'bg-rose-500 border-rose-500 text-white',
+            outline ? "bg-white border-black/75 text-black": 'bg-rose-500 border-rose-500 text-white',
             small? "py-1 text-sm font-light border" : "py-3 text-md font-semibold border-2",
             className,
 
