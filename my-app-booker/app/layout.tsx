@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modals/Modals";
 import RegisterModal from "./components/Modals/RegisterModal";
 import ShowToast from "./components/ShowToast";
+import LoginModal from "./components/Modals/LoginModal";
 
 const inter = Poppins({ style: "normal", subsets: ["latin"], weight: "400" });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <RegisterModal />
         <ShowToast />
+        <LoginModal />
         <Navbar />
         {children}
       </body>

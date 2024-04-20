@@ -61,8 +61,8 @@ export default function Modal({
 
   return (
     <>
-      <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 fixed">
-        <div className="relative w-ful md:w-[35vw] lg:w-[20vw] xl:w-3/5 my-6 mx-auto h-full lg:h-auto md:h-auto">
+      <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 fixed ">
+        <div className="relative w-ful md:w-[35vw] lg:w-[20vw] xl:w-[40vw] my-6 mx-auto h-full lg:h-auto md:h-auto">
           <div
             className={`translate duration-300 h-full ${
               showModal

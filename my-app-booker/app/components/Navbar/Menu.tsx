@@ -6,11 +6,13 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useToggle from "@shared/hooks/useToogle";
 import useSingUpModalStore from "@/app/shared/hooks/useSignUpModal";
+import useLoginModal from "@/app/shared/hooks/useLoginModal";
 
 export default function Menu() {
 
   const [toggleOpen, isOpen] = useToggle();
   const signUpModal = useSingUpModalStore();
+  const loginModal = useLoginModal();
 
   return (
     <div className="relative">
@@ -36,7 +38,7 @@ export default function Menu() {
             <div className="rounded-xl absolute shadow-md w-[40vw] md:w-3/4 overflow-hidden right-0 top-12 text-sm z-20 bg-white transistion-ease">
                 <div className="flex flex-col cursor-pointer">
                     <>
-                     <MenuItem  label="Login" onSelectMenuItem={() => {}}/>
+                     <MenuItem  label="Login" onSelectMenuItem={() => { loginModal.onOpen() }}/>
                      <MenuItem label="Signup" onSelectMenuItem={() => signUpModal.onOpen()}/>
                     </>
                 </div>

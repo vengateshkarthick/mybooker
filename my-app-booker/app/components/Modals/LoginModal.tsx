@@ -3,8 +3,10 @@
 import { useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { signIn } from 'next-auth/react';
 import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSignupModalStore from "@shared/hooks/useSignUpModal";
 import { AiFillGithub } from "react-icons/ai";
@@ -13,6 +15,7 @@ import Modal from "./Modals";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import Button from "../Button";
+import useLoginModal from "@/app/shared/hooks/useLoginModal";
 
 
 const registerSchema = z.object({
@@ -20,12 +23,13 @@ const registerSchema = z.object({
   password: z
     .string({ required_error: "Please enter your password " })
     .min(8, "Enter a valid password"),
-  name: z.string().trim().min(1, "Enter a valid name"),
 });
 
-export default function RegisterModal() {
+export default function LoginModal() {
   const registerModal = useSignupModalStore();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -34,7 +38,6 @@ export default function RegisterModal() {
   } = useForm<FieldValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -43,16 +46,23 @@ export default function RegisterModal() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    try {
-      const res = await axios.post("/api/register", data);
-      if (res.data.success) {
-        toast.success("Account created successfully")
-      }
-      registerModal.onClose();
-    } catch {
+    signIn('credentials', {
+      ...data,
+      redirect: false,
+    })
+    .then((callback) => {
       setIsLoading(false);
-      toast.error("Internal Server Error 400!!")
-    }
+     
+      if (callback?.ok) {
+        toast.success("Successfully Logged in...");
+        router.refresh();
+        loginModal.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    })
   };
 
 
@@ -65,6 +75,14 @@ export default function RegisterModal() {
          icon={FcGoogle}
          onClick={() => {}}
       />
+
+      <Button 
+         outline
+         label="Sign up with GitHub"
+         icon={AiFillGithub}
+         onClick={() => {}}
+      />
+
       <div className="flex text-neutral text-center mt-4 font-light flex-row justify-center items-center gap-2">
         <div>
           Already have an account
@@ -80,29 +98,21 @@ export default function RegisterModal() {
   return (
     <Modal
       disable={isSubmitting}
-      open={registerModal.isOpen}
-      title="Register"
+      open={loginModal.isOpen}
+      title="Login"
       actionLabel="Continue"
-      onClose={registerModal.onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       footer={footerContent}
     >
       <div className="flex flex-col gap-4">
         <Heading
-          subTitle="Create an account"
-          title="Welcome to booker"
+          subTitle="Login to your account"
+          title="Welcome back !!"
           center="no"
         />
         
-        <Input
-          id="name"
-          label="Name"
-          name="name"
-          register={register}
-          disabled={isSubmitting || isLoading}
-          errors={errors}
-          required
-        />
+        
         <Input
           id="email"
           label="Email"
