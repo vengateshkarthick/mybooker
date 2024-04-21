@@ -24,7 +24,7 @@
       "@assests/*": ["./app/assests/*"],
       "@api/*": ["./app/api/*"],
       "@actions/*": ["./app/actions/*"],
-      "@brooker-next-auth": ["./app/api/auth/[...nextauth].ts"],
+      "@brooker-next-auth": ["./app/pages/api/auth/[...nextauth].ts"],
       "@brooker-prismadb": ["./app/libs/primsdb.ts"],
       "@booker-types/*": ["./app/types/index.ts"],
     }

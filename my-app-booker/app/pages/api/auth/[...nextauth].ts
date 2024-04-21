@@ -23,7 +23,7 @@ export const authOptions : AuthOptions = {
             name: 'credentials',
             credentials: {
                 email: { label: 'email', type: 'text' },
-                passwrod: { label: 'password', type: 'text'},
+                passwrod: { label: 'password', type: 'password'},
 
             },
             async authorize(credentials) {
@@ -52,7 +52,20 @@ export const authOptions : AuthOptions = {
     session: {
         strategy: 'jwt'
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    events: {
+     signIn(message) {
+         console.log({ message })
+     },
+    },
+    logger: {
+      error(code, meta) {
+        console.log(code, meta)
+      }
+    },
+    jwt:{
+      secret: process.env.NEXTAUTH_SECRET
+    },
+    // secret: process.env.NEXTAUTH_SECRET,
 }
 
 

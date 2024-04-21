@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@api/auth/[...nextauth]";
+import { authOptions } from "@/app/pages/api/auth/[...nextauth]";
 import prisma from "@brooker-prismadb";
 
 export async function getSessions() {
