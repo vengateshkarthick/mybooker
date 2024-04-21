@@ -4,6 +4,6 @@ import { ToastContainer } from "react-toastify";
 
 export default () => {
     return (
-        <ToastContainer theme="dark" autoClose={2500}/>
+        <ToastContainer theme="dark" position="top-right"/>
     )
 }

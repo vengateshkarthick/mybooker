@@ -4,26 +4,26 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bycrypt from 'bcrypt';
-import prisma from '@/app/libs/primsdb';
+import prisma from '@brooker-prismadb';
 
 export const authOptions : AuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID as string,
-            clientSecret: process.env.GITHUB_CLIENT_SECERT as string
+            clientSecret: process.env.GITHUB_CLIENT_SECRET as string
 
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECERT as string
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
 
         }), 
         CredentialsProvider({
             name: 'credentials',
             credentials: {
                 email: { label: 'email', type: 'text' },
-                passwrod: { label: 'email', type: 'text'},
+                passwrod: { label: 'password', type: 'text'},
 
             },
             async authorize(credentials) {
@@ -52,7 +52,7 @@ export const authOptions : AuthOptions = {
     session: {
         strategy: 'jwt'
     },
-    secret: process.env.NEXTAUTH_SECERT,
+    secret: process.env.NEXTAUTH_SECRET,
 }
 
 

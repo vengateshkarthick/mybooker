@@ -16,6 +16,7 @@ import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import Button from "../Button";
 import useLoginModal from "@/app/shared/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
 
 
 const registerSchema = z.object({
@@ -46,6 +47,7 @@ export default function LoginModal() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+    console.log({ data })
     signIn('credentials', {
       ...data,
       redirect: false,
@@ -71,16 +73,20 @@ export default function LoginModal() {
       <hr />
       <Button 
          outline
-         label="Sign up with Google"
+         label="Sign in with Google"
          icon={FcGoogle}
-         onClick={() => {}}
+         onClick={() => {
+          signIn('google')
+         }}
       />
 
       <Button 
          outline
-         label="Sign up with GitHub"
+         label="Sign in with GitHub"
          icon={AiFillGithub}
-         onClick={() => {}}
+         onClick={() => {
+           signIn('github');
+         }}
       />
 
       <div className="flex text-neutral text-center mt-4 font-light flex-row justify-center items-center gap-2">

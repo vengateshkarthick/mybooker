@@ -13,7 +13,8 @@ import Modal from "./Modals";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import Button from "../Button";
-
+import { signIn } from "next-auth/react";
+import useLoginModal from "@/app/shared/hooks/useLoginModal";
 
 const registerSchema = z.object({
   email: z.string().email("Enter a valid email"),
@@ -25,6 +26,7 @@ const registerSchema = z.object({
 
 export default function RegisterModal() {
   const registerModal = useSignupModalStore();
+  const loginModalStore = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -46,36 +48,55 @@ export default function RegisterModal() {
     try {
       const res = await axios.post("/api/register", data);
       if (res.data.success) {
-        toast.success("Account created successfully")
+        toast.success("Account created successfully");
       }
       registerModal.onClose();
     } catch {
       setIsLoading(false);
-      toast.error("Internal Server Error 400!!")
+      toast.error("Internal Server Error 400!!");
     }
   };
 
+  const handleLogin = () => {
+    registerModal.onClose();
+    loginModalStore.onOpen();
+  };
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button 
-         outline
-         label="Sign up with Google"
-         icon={FcGoogle}
-         onClick={() => {}}
-      />
-      <div className="flex text-neutral text-center mt-4 font-light flex-row justify-center items-center gap-2">
-        <div>
-          Already have an account
-        </div>
-        <div className="text-blue-600 underline cursor-pointer" onClick={registerModal.onClose}>
-         Log in
-        </div>
+      <div className="flex justify-between">
+        <Button
+          outline
+          label="Google"
+          icon={FcGoogle}
+          onClick={() => {
+            signIn("google");
+          }}
+          className="w-[40%]"
+        />
+        <Button
+          outline
+          label="GuitHub"
+          icon={AiFillGithub}
+          onClick={() => {
+            signIn("github");
+          }}
+          className="w-[40%]"
+        />
       </div>
 
+      <div className="flex text-neutral text-center mt-4 font-light flex-row justify-center items-center gap-2">
+        <div>Already have an account</div>
+        <div
+          className="text-blue-600 underline cursor-pointer"
+          onClick={handleLogin}
+        >
+          Log in
+        </div>
+      </div>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -93,7 +114,7 @@ export default function RegisterModal() {
           title="Welcome to booker"
           center="no"
         />
-        
+
         <Input
           id="name"
           label="Name"

@@ -1,15 +1,16 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { signOut } from 'next-auth/react'
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useToggle from "@shared/hooks/useToogle";
 import useSingUpModalStore from "@/app/shared/hooks/useSignUpModal";
 import useLoginModal from "@/app/shared/hooks/useLoginModal";
+import { SafeUser } from "@booker-types/";
 
-export default function Menu() {
-
+export default function Menu({ currentUser }: { currentUser?: SafeUser | null }) {
   const [toggleOpen, isOpen] = useToggle();
   const signUpModal = useSingUpModalStore();
   const loginModal = useLoginModal();
@@ -29,23 +30,46 @@ export default function Menu() {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar />
+            <Avatar userImg={currentUser?.image} />
           </div>
         </div>
       </div>
-      {
-        isOpen && (
-            <div className="rounded-xl absolute shadow-md w-[40vw] md:w-3/4 overflow-hidden right-0 top-12 text-sm z-20 bg-white transistion-ease">
-                <div className="flex flex-col cursor-pointer">
-                    <>
-                     <MenuItem  label="Login" onSelectMenuItem={() => { loginModal.onOpen() }}/>
-                     <MenuItem label="Signup" onSelectMenuItem={() => signUpModal.onOpen()}/>
-                    </>
-                </div>
+      {isOpen && (
+        <div className="rounded-xl absolute shadow-md w-[40vw] md:w-3/4 overflow-hidden right-0 top-12 text-sm z-20 bg-white transistion-ease">
+          <div className="flex flex-col cursor-pointer">
+            <>
+              {currentUser ? (
+                <>
+                  <MenuItem label="My trips" onSelectMenuItem={() => {}} />
+                  <MenuItem label="My favorities" onSelectMenuItem={() => {}} />
+                  <MenuItem
+                    label="My reservations"
+                    onSelectMenuItem={() => {}}
+                  />
+                  <MenuItem label="My properties" onSelectMenuItem={() => {}} />
+                  <MenuItem label="booker Home" onSelectMenuItem={() => {}} />
+                  <hr />
+                  <MenuItem label="Log out" onSelectMenuItem={() => signOut()} />
 
-            </div>
-        )
-      }
+                </>
+              ) : (
+                <>
+                  <MenuItem
+                    label="Login"
+                    onSelectMenuItem={() => {
+                      loginModal.onOpen();
+                    }}
+                  />
+                  <MenuItem
+                    label="Signup"
+                    onSelectMenuItem={() => signUpModal.onOpen()}
+                  />
+                </>
+              )}
+            </>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

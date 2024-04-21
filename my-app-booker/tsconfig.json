@@ -21,7 +21,12 @@
       "@/*": ["./*"],
       "@shared/*": ["./app/shared/*"],
       "@components/*" :["./app/components/*"],
-      "@assests/*": ["./app/assests/*"]
+      "@assests/*": ["./app/assests/*"],
+      "@api/*": ["./app/api/*"],
+      "@actions/*": ["./app/actions/*"],
+      "@brooker-next-auth": ["./app/api/auth/[...nextauth].ts"],
+      "@brooker-prismadb": ["./app/libs/primsdb.ts"],
+      "@booker-types/*": ["./app/types/index.ts"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

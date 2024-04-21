@@ -62,7 +62,7 @@ export default function Modal({
   return (
     <>
       <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 fixed ">
-        <div className="relative w-ful md:w-[35vw] lg:w-[20vw] xl:w-[40vw] my-6 mx-auto h-full lg:h-auto md:h-auto">
+        <div className="relative w-full md:w-[35vw] lg:w-[20vw] xl:w-[40vw] my-6 mx-auto h-full md:h-auto">
           <div
             className={`translate duration-300 h-full ${
               showModal
@@ -70,15 +70,15 @@ export default function Modal({
                 : "translate-y-full opacity-0"
             }` }
           >
-            <div className="translate h-full md:h-auto lg:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none bg-white focus:outline-none">
-              <div className="flex items-center p-6 rounde-t justify-center relative border-b">
+            <div className="translate h-full md:h-auto lg:h-auto max-h-[90vh] border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none bg-white focus:outline-none">
+              <div className="flex items-center p-4 rounde-t justify-center relative border-b">
                 <button
                   className="p-1 border-0 hover:opactiy-70 transistion absolute left-9 focus:border focus:p-1 focus:rounded-sm focus:border-black"
                   onClick={handleClose}
                 >
                   <IoMdClose size={18} />
                 </button>
-                <div className="text-2xl font-semibold">{title}</div>
+                <div className="text-lg font-semibold">{title}</div>
               </div>
               <div className="relative p-6 flex-auto">{children}</div>
               <div className="flex flex-col gap-2  p-6">
@@ -96,6 +96,7 @@ export default function Modal({
                     disable={disable}
                     label={actionLabel}
                     onClick={onSubmit}
+                    
                   />
                 </div>
                 {footer}

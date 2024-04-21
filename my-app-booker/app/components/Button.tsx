@@ -11,10 +11,11 @@ interface ButtonInterface {
     small?: boolean;
     icon?: IconType; 
     className?: string;
+    type?: "submit" | "button"
 }
 
 export default function Button({
-    label, onClick, disable, outline, small, icon:Icon, className
+    label, onClick, disable, outline, small, icon:Icon, className, type = "button"
 } : ButtonInterface) {
     return (
         <button 
@@ -26,6 +27,7 @@ export default function Button({
          )}
          onClick={onClick}
          disabled={disable}
+         type={type}
         >
         {Icon && <Icon size={24} className="absolute left-4 top-3" />}
         {label}
